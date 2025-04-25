@@ -4,7 +4,7 @@ import { Users } from "lucide-react";
 const DepartmentCard = ({ department, batchYear }) => {
   return (
     <Link
-      to={`/batch/${batchYear}/${department.code}`}
+      to={`${department.code}`}
       className="group block rounded-lg overflow-hidden bg-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
     >
       <div className="relative h-40 overflow-hidden">
