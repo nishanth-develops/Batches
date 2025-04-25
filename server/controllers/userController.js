@@ -40,17 +40,36 @@ const batchesList = async (req, res) => {
 
 const usersList = async (req, res) => {
     try {
-        const [rows] = await pool.query('SELECT * FROM users');
+        const { batch_id, branch } = req.query; // ✅ Get batch & branch from query params
+        let query = "SELECT id, name, img FROM users WHERE role = 'student'";
+        const queryParams = [];
+
+        if (batch_id) {
+            query += " AND batch_id = ?";
+            queryParams.push(batch_id);
+        }
+
+        if (branch) {
+            query += " AND branch = ?";
+            queryParams.push(branch);
+        }
+
+        const [rows] = await pool.query(query, queryParams);
+
+        // Convert BLOB image to base64
         const users = rows.map(user => ({
-            ...user,
-            image: user.img || null
-          }));
-        res.json({success:true, users});
+            id: user.id,
+            name: user.name,
+            img: user.img ? `data:image/png;base64,${Buffer.from(user.img).toString("base64")}` : null
+        }));
+
+        res.json({ success: true, users });
     } catch (error) {
-        console.error('Error fetching users:', error);
-        res.send(error.message);
+        console.error("Error fetching users:", error);
+        res.status(500).json({ success: false, message: error.message });
     }
-}
+};
+
 
 //get user by id 
 const getUserById = async (req, res) => {

@@ -11,6 +11,7 @@ userRoute.get('/batches-list', batchesList);
 userRoute.get('/users-list',authUser, usersList);
 userRoute.get('/users-list/:id',authUser, getUserById);
 userRoute.get('/batches-list/:year', authUser, getBatchesByYear)
+userRoute.get("/users-list", authUser, usersList);
 
 
 export default userRoute
