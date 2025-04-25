@@ -34,6 +34,14 @@ export default function Navbar() {
         </Link>
         {/* <a href="#" className="hover:text-gray-600">News</a>
         <a href="#" className="hover:text-gray-600">Contact Us</a> */}
+
+        <SignedOut>
+          <Link to="/signin" className="hover:text-gray-600">Log In</Link>
+        </SignedOut>
+
+        <SignedIn>
+          <UserButton afterSignOutUrl="/signin" />
+        </SignedIn>
       </div>
     </nav>
   );
