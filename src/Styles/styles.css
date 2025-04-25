@@ -1,127 +1,130 @@
-@keyframes appear
-{
-    from
-    {
-        opacity: 0;
-        transform: translateX(-100px);
-    }to{
-        opacity: 1;
-        transform: translateX(0px);
-    }
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0px);
+  }
 }
 
-.card
-{
-    animation: appear linear;
-    animation-timeline: view();
-    animation-range: entry 0% cover 40%; 
+.card {
+  animation: appear linear;
+  animation-timeline: view();
+  animation-range: entry 0% cover 40%;
 }
 
 @keyframes rotateIn {
-    from {
-      opacity: 0;
-      transform: rotate(-15deg) scale(0.9);
-    }
-    to {
-      opacity: 1;
-      transform: rotate(0deg) scale(1);
-    }
+  from {
+    opacity: 0;
+    transform: rotate(-15deg) scale(0.9);
   }
-  
-  .card-rotate {
-    animation: rotateIn ease-in-out;
-    animation-timeline: view();
-    animation-range: entry 0% cover 60%;
+  to {
+    opacity: 1;
+    transform: rotate(0deg) scale(1);
   }
-  
-  @keyframes dropIn {
-    0% {
-      opacity: 0;
-      transform: translateY(-120px);
-    }
-    60% {
-      transform: translateY(10px);
-      opacity: 1;
-    }
-    100% {
-      transform: translateY(0);
-    }
-  }
-  
-  .card-drop {
-    animation: dropIn cubic-bezier(0.68, -0.55, 0.27, 1.55);
-    animation-timeline: view();
-    animation-range: entry 0% cover 70%;
-  }
+}
 
+.card-rotate {
+  animation: rotateIn ease-in-out;
+  animation-timeline: view();
+  animation-range: entry 0% cover 60%;
+}
 
-  @keyframes slideDiagonal {
-    from {
-      opacity: 0;
-      transform: translate(-100px, 100px);
-    }
-    to {
-      opacity: 1;
-      transform: translate(0, 0);
-    }
+@keyframes dropIn {
+  0% {
+    opacity: 0;
+    transform: translateY(-120px);
   }
-  
-  .card-diagonal {
-    animation: slideDiagonal ease-in-out;
-    animation-timeline: view();
-    animation-range: entry 0% cover 50%;
+  60% {
+    transform: translateY(10px);
+    opacity: 1;
   }
-  
-  @keyframes zoomIn {
-    from {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
+  100% {
+    transform: translateY(0);
   }
-  
-  .card-zoom {
-    animation: zoomIn ease-out;
-    animation-timeline: view();
-    animation-range: entry 10% cover 50%;
-  }
+}
 
-  @keyframes slideFromBottom {
-    from {
-      opacity: 0;
-      transform: translateY(100px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .card-bottom {
-    animation: slideFromBottom ease-in;
-    animation-timeline: view();
-    animation-range: entry 0% cover 50%;
-  }
+.card-drop {
+  animation: dropIn cubic-bezier(0.68, -0.55, 0.27, 1.55);
+  animation-timeline: view();
+  animation-range: entry 0% cover 70%;
+}
 
-  @keyframes shine {
-    0% {
-      background-position: 0%;
-    }
-    100% {
-      background-position: 200%;
-    }
+@keyframes slideDiagonal {
+  from {
+    opacity: 0;
+    transform: translate(-100px, 100px);
   }
-  
-  .gradient-text {
-    font-size: 72px;
-    font-weight: bold;
-    background: linear-gradient(90deg, #000000, #6A5ACD, #9370DB, #6A5ACD, #000000);
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shine 4s linear infinite;
+  to {
+    opacity: 1;
+    transform: translate(0, 0);
   }
+}
+
+.card-diagonal {
+  animation: slideDiagonal ease-in-out;
+  animation-timeline: view();
+  animation-range: entry 0% cover 50%;
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.card-zoom {
+  animation: zoomIn ease-out;
+  animation-timeline: view();
+  animation-range: entry 10% cover 50%;
+}
+
+@keyframes slideFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card-bottom {
+  animation: slideFromBottom ease-in;
+  animation-timeline: view();
+  animation-range: entry 0% cover 50%;
+}
+
+@keyframes shine {
+  0% {
+    background-position: 0%;
+  }
+  100% {
+    background-position: 200%;
+  }
+}
+
+.gradient-text {
+  font-weight: bold;
+  background: linear-gradient(
+    90deg,
+    #000000,
+    #6a5acd,
+    #9370db,
+    #6a5acd,
+    #000000
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine 4s linear infinite;
+}

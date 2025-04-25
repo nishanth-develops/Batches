@@ -29,9 +29,9 @@ export default function Navbar() {
         <a href="#" className="hover:text-gray-600">
           News
         </a>
-        <a href="#" className="hover:text-gray-600">
+        <Link to="/companies" className="hover:text-gray-600">
           Companies
-        </a>
+        </Link>
         {/* <a href="#" className="hover:text-gray-600">News</a>
         <a href="#" className="hover:text-gray-600">Contact Us</a> */}
       </div>

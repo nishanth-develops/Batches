@@ -52,7 +52,7 @@ function HomePage() {
     <div className="min-h-screen font-sans">
       <main className="w-full bg-white shadow">
 
-          <h1 className="text-14xl font-bold text-center gradient-text mb-2">
+          <h1 className="text-[72px] font-bold text-center gradient-text mb-2">
             <span className="text-gray-900">WELCOME TO </span>
             <span className="text-indigo-500">BATCHES</span>
           </h1>
