@@ -13,14 +13,9 @@ function App() {
         <Route path="/" element={<RootLayout />}>
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
-          <Route path="community">
-            <Route index element={<CommunityPage />} />
-            <Route path="batch/:year" element={<BatchPage />} />
-            <Route
-              path="batch/:year/:department"
-              element={<DepartmentPage />}
-            />
-          </Route>
+          <Route path="community" element={<CommunityPage />} />
+          <Route path="batch/:year" element={<BatchPage />} />
+          <Route path="batch/:year/:department" element={<DepartmentPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

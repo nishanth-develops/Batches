@@ -1,14 +1,15 @@
 import React from 'react';
+import '../Styles/Styles.css'
 
 export default function AboutPage() {
   return (
     <div className="w-full bg-slate-50 text-black">
    
       <section className="flex flex-row p-8 items-center">
-        <div className="w-1/2">
-          <h1 className="text-5xl font-bold mb-4">Our Vision</h1>
+        <div className="w-2/5">
+          <h1 className="text-7xl font-bold mb-4">Our Vision</h1>
         </div>
-        <div className="w-1/2">
+        <div className="w-3/5">
           <h2 className="text-2xl font-semibold mb-2">Empowering Education Through Batches</h2>
           <p className="mb-6">
             Batches is a 'Hall of Fame' inspired platform dedicated to organizing
@@ -24,12 +25,12 @@ export default function AboutPage() {
       </section>
 
  
-      <section className="flex flex-row p-8 items-center">
-        <div className="w-1/2">
-          <h1 className="text-5xl font-bold mb-2">Our Journey</h1>
+      <section className="flex flex-row p-8 items-center mb-2">
+        <div className="w-2/5">
+          <h1 className="text-7xl font-bold mb-2">Our Journey</h1>
           <h2 className="text-xl font-medium">Building the Future</h2>
         </div>
-        <div className="w-1/2">
+        <div className="w-3/5">
           <p className="mb-6">
             Since our inception, Batches has been committed to structuring college
             data efficiently. Our journey involves creating a platform that showcases
@@ -51,19 +52,19 @@ export default function AboutPage() {
         
      
         <div className="flex justify-center gap-8 mb-8">
-          <div className="w-64">
+          <div className="w-64 card">
             <div className="bg-gray-200 w-full h-64 rounded-lg mb-4"></div>
             <h3 className="text-xl font-bold text-center">Sri Hasnika</h3>
           </div>
-          <div className="w-64">
+          <div className="w-64 card">
             <div className="bg-gray-200 w-full h-64 rounded-lg mb-4"></div>
             <h3 className="text-xl font-bold text-center">Mahesh</h3>
           </div>
-          <div className="w-64">
+          <div className="w-64 card">
             <div className="bg-gray-200 w-full h-64 rounded-lg mb-4"></div>
             <h3 className="text-xl font-bold text-center">Abdul</h3>
           </div>
-          <div className="w-64">
+          <div className="w-64 card">
             <div className="bg-gray-200 w-full h-64 rounded-lg mb-4"></div>
             <h3 className="text-xl font-bold text-center">Mani Shankar</h3>
           </div>

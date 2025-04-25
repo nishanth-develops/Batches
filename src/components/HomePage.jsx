@@ -1,111 +1,156 @@
-import React from 'react';
+import React,{ useEffect, useRef, useState  } from 'react';
 function HomePage() {
+  const stackAreaRef = useRef(null);
+  const [scrollIndex, setScrollIndex] = useState(-1);
+  
+  // Student testimonial data
+  const testimonials = [
+    {
+      id: 1,
+      subtitle: "Student Connection",
+      content: "I found the branch-wise divisions and section details very informative. It helped me connect with students from different backgrounds effortlessly.",
+      color: "linear-gradient(90deg, #000000, #6A5ACD, #9370DB, #6A5ACD, #000000);",
+      cta: "Discover More"
+    },
+    {
+      id: 2,
+      subtitle: "User Experience",
+      content: "Batches has revolutionized how students interact with each other online. The platform is intuitive and user-friendly, making the experience enjoyable.",
+      color: "linear-gradient(90deg, #000000, #6A5ACD, #9370DB, #6A5ACD, #000000);",
+      cta: "Connect Now"
+    },
+    {
+      id: 3,
+      subtitle: "Visual Interface",
+      content: "The ability to view class-wide student cards adds a unique touch to the platform. It's a great way to visually connect with peers.",
+      color: "linear-gradient(90deg, #000000, #6A5ACD, #9370DB, #6A5ACD, #000000);",
+      cta: null
+    },
+    {
+      id: 4,
+      subtitle: "Organization",
+      content: "The branch-wise divisions with detailed sections provide a comprehensive overview of the college's structure.",
+      color: "linear-gradient(90deg, #000000, #6A5ACD, #9370DB, #6A5ACD, #000000);",
+      cta: null
+    },
+  ];
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (stackAreaRef.current) {
+        const distance = window.innerHeight * 0.5;
+        const topVal = stackAreaRef.current.getBoundingClientRect().top;
+        const index = Math.floor(-1 * (topVal / distance + 1));
+        setScrollIndex(index);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   return (
     <div className="min-h-screen font-sans">
-      <main className="max-w-6xl mx-auto mt-4 bg-white rounded-lg shadow">
+      <main className="w-full bg-white shadow">
 
-        <section className="bg-lavender-50 p-4">
-          <h1 className="text-6xl font-bold text-center">
+          <h1 className="text-14xl font-bold text-center gradient-text mb-2">
             <span className="text-gray-900">WELCOME TO </span>
             <span className="text-indigo-500">BATCHES</span>
           </h1>
-          <div className="h-64 flex items-center justify-center">
-            <div className="w-full h-64 bg-lavender-100 rounded-full opacity-25 absolute"></div>
-          </div>
-        </section>
-        <section className="flex bg-gray-100 p-8">
-          <div className="w-1/2">
-            <h1 className="text-5xl font-bold mb-4">
-              Celebrate Your Journey, Connect with Your Peers
-            </h1>
-          </div>
-          <div className="w-1/2 px-6">
-            <p className="text-lg mb-6 text-right">
-              Welcome to our digital hall of fame, where you can explore the achievements and stories of fellow graduates. This platform connects you with your peers, showcasing their journeys and current endeavors.
-            </p>
-            <div className="flex justify-end space-x-4">
-              <button className="bg-black text-white px-6 py-3">Start Now</button>
-              <button className="bg-white border border-gray-300 px-6 py-3">View More</button>
-            </div>
-          </div>
-        </section>
+          <section className="bg-gradient-to-b from-[#d9d7f1] to-[#f7f7f7] min-h-screen flex items-center px-24">
+  <div className="flex w-full px-8">
+    <div className="w-3/5">
+      <h1 className="text-7xl font-bold mb-4 px-12 leading-tight">
+        Celebrate Your Journey, Connect with Your Peers
+      </h1>
+    </div>
+    <div className="w-2/5 px-6">
+      <p className="text-lg mb-4">
+        Welcome to our digital hall of fame, where you can explore the achievements and stories of fellow graduates. This platform connects you with your peers, showcasing their journeys and current endeavors.
+      </p>
+      <div className="flex space-x-4">
+        <button className="bg-black text-white px-6 py-3">Start Now</button>
+        <button className="bg-white border border-gray-300 px-6 py-3">View More</button>
+      </div>
+    </div>
+  </div>
+</section>
 
-        <section className="py-16 px-8">
+        <section className="py-16 px-8 card">
           <h2 className="text-4xl font-bold text-center mb-16">DISCOVER YOUR SENIORS</h2>
           
-          <div className="flex justify-between gap-6">
+          <div className="flex justify-between gap-6 card">
             <div className="w-1/3">
-              <div className="h-48 bg-amber-50 rounded-lg mb-4"></div>
+              <div className="h-48 bg-amber-50 rounded-lg mb-4 card"></div>
               <h3 className="text-xl font-bold mb-2">Find Alumni by Year, Branch, and Section with Ease</h3>
               <button className="bg-black text-white px-6 py-2 mt-4">Start Now</button>
             </div>
             
             <div className="w-1/3">
-              <div className="h-48 bg-amber-50 rounded-lg mb-4"></div>
+              <div className="h-48 bg-amber-50 rounded-lg mb-4 card"></div>
               <h3 className="text-xl font-bold mb-2">Navigate Through Categories to Discover Your Peers' Achievements</h3>
               <button className="bg-black text-white px-6 py-2 mt-4">Start Now</button>
             </div>
             
             <div className="w-1/3">
-              <div className="h-48 bg-amber-50 rounded-lg mb-4"></div>
+              <div className="h-48 bg-amber-50 rounded-lg mb-4 card"></div>
               <h3 className="text-xl font-bold mb-2">Engage with Alumni: Connect and Share Experiences</h3>
               <button className="bg-black text-white px-6 py-2 mt-4">Start Now</button>
             </div>
           </div>
         </section>
         <section className="py-16 px-8 bg-white">
-          <div className="flex">
-            <div className="w-1/3">
-              <h2 className="text-4xl font-bold mb-4">Student Experiences</h2>
-              <p className="mb-6">
-                Batches is an outstanding platform that allows students to connect and engage with the college community like never before. It's truly a game-changer!
-              </p>
+        <div className="stack-area w-full h-[300vh] relative bg-white flex" ref={stackAreaRef}>
+      <div className="left h-screen w-1/2 sticky top-0 left-0 flex items-center justify-center flex-col">
+        <div className="title w-[420px] text-[84px] font-bold leading-[88px] font-poppins">
+          Student Experiences
+        </div>
+        <div className="sub-title w-[420px] font-poppins text-sm mt-8">
+          Batches is an outstanding platform that allows students to connect and engage with the college community like never before. It's truly a game-changer!
+          <br />
+          <button className="mt-5 bg-black text-white px-8 py-4 rounded-full font-poppins text-sm border-none outline-none cursor-pointer">
+            See More Details
+          </button>
+        </div>
+      </div>
+      <div className="right h-screen w-1/2 sticky top-0">
+        {testimonials.map((testimonial, index) => (
+          <div
+            key={testimonial.id}
+            className="w-[350px] h-[350px] rounded-3xl mb-3 absolute transition-all duration-500 ease-in-out"
+            style={{
+              background:"linear-gradient(90deg, #000000, #6A5ACD, #9370DB, #6A5ACD, #000000)",
+              top: 'calc(50% - 175px)',
+              left: 'calc(50% - 175px)',
+              padding: '35px',
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'column',
+              zIndex: testimonials.length - index,
+              transform: index <= scrollIndex 
+                ? 'translateY(-120vh) rotate(-48deg)' 
+                : `rotate(${-10 * (index - Math.max(0, scrollIndex + 1))}deg)`
+            }}
+          >
+            <div className="sub font-poppins text-xl font-bold text-white">
+              {testimonial.subtitle}
             </div>
-            
-            <div className="w-2/3 grid grid-cols-2 gap-8 pl-12">
-              <div className="mb-8">
-                <div className="flex justify-end mb-2">
-                  <span className="text-6xl text-gray-300">"</span>
-                </div>
-                <p className="mb-4">
-                  I found the branch-wise divisions and section details very informative. It helped me connect with students from different backgrounds effortlessly.
-                </p>
-                <p className="text-purple-600">Discover More</p>
+            <div>
+              <div className="content font-poppins text-2xl font-bold leading-tight text-white mb-4">
+                {testimonial.content}
               </div>
-              
-              <div className="mb-8">
-                <div className="flex justify-end mb-2">
-                  <span className="text-6xl text-gray-300">"</span>
-                </div>
-                <p className="mb-4">
-                  Batches has revolutionized how students interact with each other online. The platform is intuitive and user-friendly, making the experience enjoyable.
-                </p>
-                <p className="text-purple-600">Connect Now</p>
-              </div>
-              
-              <div>
-                <div className="flex justify-end mb-2">
-                  <span className="text-6xl text-gray-300">"</span>
-                </div>
-                <p className="mb-4">
-                  The ability to view class-wide student cards adds a unique touch to the platform. It's a great way to visually connect with peers.
-                </p>
-              </div>
-              
-              <div>
-                <div className="flex justify-end mb-2">
-                  <span className="text-6xl text-gray-300">"</span>
-                </div>
-                <p className="mb-4">
-                  The branch-wise divisions with detailed sections provide a comprehensive overview of the college's structure.
-                </p>
-              </div>
+              {testimonial.cta && (
+                <button className="text-white border border-white px-4 py-2 rounded-lg font-poppins text-sm hover:bg-white hover:bg-opacity-20 transition-all">
+                  {testimonial.cta}
+                </button>
+              )}
             </div>
           </div>
+        ))}
+      </div>
+    </div>
         </section>
-
-        <section className="py-16 px-8 bg-white">
-          <h2 className="text-4xl font-bold text-center mb-16">Key Offerings</h2>
+        <section className="py-16 px-8 bg-white mx-8 mb-4 card-zoom">
+          <h2 className="text-6xl font-bold text-center mb-16">Key Offerings</h2>
           
           <div className="grid grid-cols-4 gap-8">
             <div className="text-center">
@@ -118,7 +163,7 @@ function HomePage() {
               </div>
               <h3 className="text-xl font-bold mb-3">Student Data</h3>
               <p className="mb-6 text-sm">
-                Explore the branch divisions to understand the college's academic structure better and connect with students from various disciplines and improve your network.
+                Explore the branch divisions to understand the college's academic structure better and connect with students from various disciplines.
               </p>
               <button className="border border-black rounded-full px-6 py-2 text-sm">Discover Divisions</button>
             </div>
@@ -170,17 +215,17 @@ function HomePage() {
           </div>
         </section>
 
-        <section className="py-16 px-8 bg-white">
+        <section className="py-16 px-8 bg-white card-diagonal">
           <div className="flex">
-            <div className="w-1/3">
-              <h2 className="text-4xl font-bold mb-4">Stay Updated with Batches</h2>
+            <div className="w-2/5">
+              <h2 className="text-6xl font-bold mb-4">Stay Updated with Batches</h2>
               <p className="mb-6">
                 Get the latest news and updates about Batches and the college community. Stay informed about upcoming events, achievements, and important announcements.
               </p>
               <button className="border border-black rounded-full px-6 py-2 mt-4">Read More</button>
             </div>
             
-            <div className="w-2/3 grid grid-cols-2 gap-8 pl-12">
+            <div className="w-3/5 grid grid-cols-2 gap-8 pl-12">
               <div className="mb-8">
                 <div className="flex mb-3">
                   <span className="text-3xl">★</span>

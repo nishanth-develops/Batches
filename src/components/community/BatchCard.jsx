@@ -4,7 +4,7 @@ import { Users } from "lucide-react";
 const BatchCard = ({ batch }) => {
   return (
     <Link
-      to={`batch/${batch.year}`}
+      to={`/batch/${batch.year}`}
       className="group block rounded-lg overflow-hidden bg-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
     >
       <div className="relative h-48 overflow-hidden">
