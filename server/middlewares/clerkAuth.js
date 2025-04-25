@@ -1,4 +1,4 @@
-const jwt = require("jsonwebtoken")
+import jwt from 'jsonwebtoken'
 
 const clerkAuth = async (req, res, next) => {
   try {
@@ -42,5 +42,5 @@ const clerkAuth = async (req, res, next) => {
   }
 }
 
-module.exports = clerkAuth
+export default clerkAuth
 

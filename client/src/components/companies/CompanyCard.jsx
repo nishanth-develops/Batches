@@ -1,8 +1,23 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from "@clerk/clerk-react"; 
 
 const CompanyCard = ({ company }) => {
+  const { isSignedIn } = useAuth(); 
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    if (!isSignedIn) {
+      e.preventDefault();
+      navigate("/signin");
+    }
+  };
+
   return (
-    <Link to={`${company.name}`} className="block group">
+    <Link
+      to={`${company.name}`}
+      onClick={handleClick} 
+      className="block group"
+    >
       <div
         className="h-40 border flex justify-center items-center rounded-md relative
        group group-hover:scale-105 transition-all duration-300 ease-out"

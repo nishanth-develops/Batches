@@ -1,10 +1,22 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Users } from "lucide-react";
+import { useAuth } from "@clerk/clerk-react"; 
 
 const BatchCard = ({ batch }) => {
+  const { isSignedIn } = useAuth(); // ✅ Get user's authentication status
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    if (!isSignedIn) {
+      e.preventDefault();
+      navigate("/signin"); 
+    }
+  };
+
   return (
     <Link
       to={`batch/${batch.year}`}
+      onClick={handleClick} 
       className="group block rounded-lg overflow-hidden bg-white shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1"
     >
       <div className="relative h-48 overflow-hidden">

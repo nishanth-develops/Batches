@@ -17,35 +17,36 @@ function App() {
         {/* Auth Pages */}
         <Route path="/signin" element={<Centered><SignIn routing="path" path="/signin" /></Centered>} />
         <Route path="/signup" element={<Centered><SignUp routing="path" path="/signup" /></Centered>} />
-        
-        {/* Protected App */}
-        <Route path="/" element={
-          <SignedIn>
-            <RootLayout />
-          </SignedIn>}>
+
+        {/* Public Routes */}
+        <Route path="/" element={<RootLayout />}>
           <Route index element={<HomePage />} />
           <Route path="about" element={<AboutPage />} />
-          <Route path="community">
-            <Route index element={<CommunityPage />} />
-            <Route path="batch/:year" element={<BatchPage />} />
-            <Route
-              path="batch/:year/:department"
-              element={<DepartmentPage />}
-            />
-          </Route>
+          <Route path="community" element={<CommunityPage />} />
           <Route path="companies">
             <Route index element={<CompaniesPage />} />
             <Route path=":name" element={<CompanyDetailsPage />} />
           </Route>
         </Route>
 
-        {/* Catch-all for SignedOut users */}
-        <Route path="*" element={
+        {/* Protected Routes - Requires Sign In */}
+        <Route path="community/batch/:year" element={
+          <SignedIn>
+            <BatchPage />
+          </SignedIn>
+        } />
+        <Route path="community/batch/:year/:department" element={
+          <SignedIn>
+            <DepartmentPage />
+          </SignedIn>
+        } />
+
+        {/* Redirect to sign in if accessing batches while signed out */}
+        <Route path="community/batch/*" element={
           <SignedOut>
             <RedirectToSignIn />
           </SignedOut>
         } />
-
       </Routes>
     </BrowserRouter>
   );
