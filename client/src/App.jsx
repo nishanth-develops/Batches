@@ -9,10 +9,13 @@ import CompaniesPage from "./pages/CompaniesPage";
 import CompanyDetailsPage from "./pages/CompanyDetailsPage";
 import { SignIn, SignUp, SignedIn, SignedOut, RedirectToSignIn } from "@clerk/clerk-react";
 import Centered from "./components/Centered";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   return (
+
     <BrowserRouter>
+          <ToastContainer/>
       <Routes>
         {/* Auth Pages */}
         <Route path="/signin" element={<Centered><SignIn routing="path" path="/signin" /></Centered>} />

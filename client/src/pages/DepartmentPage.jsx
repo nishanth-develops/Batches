@@ -1,36 +1,77 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import MemoryLane from "../components/community/MemoryLane";
 import MembersGrid from "../components/community/MembersGrid";
 import { PlusCircle, UserPlus } from "lucide-react";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useAuth } from "@clerk/clerk-react";
+import { useLocation } from "react-router-dom";
 
-const departments = [
-  {
-    name: "Computer Science Engineering",
-    code: "cse",
-    totalStudents: 120,
-    image:
-      "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    name: "Information Technology",
-    code: "it",
-    totalStudents: 90,
-    image:
-      "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    name: "Artificial Intelligence & Data Science",
-    code: "aids",
-    totalStudents: 60,
-    image:
-      "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-];
+// const departments = [
+//   {
+//     name: "Computer Science Engineering",
+//     code: "cse",
+//     totalStudents: 120,
+//     image:
+//       "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//   },
+//   {
+//     name: "Information Technology",
+//     code: "it",
+//     totalStudents: 90,
+//     image:
+//       "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//   },
+//   {
+//     name: "Artificial Intelligence & Data Science",
+//     code: "aids",
+//     totalStudents: 60,
+//     image:
+//       "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+//   },
+// ];
+
+
 
 const DepartmentPage = () => {
   const { year, department } = useParams();
-  const departmentInfo = departments.find((d) => d.code === department);
+  const [departmentInfo, setDepartmentInfo] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const fetchDepartment = async () => {
+    if (!department || !year) {
+      toast.error("Invalid batch or department");
+      return;
+    }
+
+    try {
+      const { data } = await axios.get(`http://localhost:3000/api/user/departments/${year}/${department}`);
+      if (data.success) {
+        setDepartmentInfo(data.department);
+        // console.log(data.department);
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch department info");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDepartment();
+  }, [year, department]);
+
+  if (loading) {
+    return <div className="p-5 text-center text-gray-500">Loading department details...</div>;
+  }
+
+  if (!departmentInfo) {
+    return <div className="p-5 text-center text-red-500">Department not found.</div>;
+  }
 
   return (
     <div className="p-5">

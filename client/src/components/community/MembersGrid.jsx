@@ -1,56 +1,38 @@
 import { useState, useEffect } from "react";
 import { Users } from "lucide-react";
 
-const initialMembers = [
-  {
-    id: "1",
-    name: "Alex Johnson",
-    rollNumber: "CSE001",
-    department: "cse",
-    batch: "2024",
-    image:
-      "https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    id: "2",
-    name: "Jamie Smith",
-    rollNumber: "CSE002",
-    department: "cse",
-    batch: "2024",
-    image:
-      "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    id: "3",
-    name: "Taylor Rodriguez",
-    rollNumber: "IT001",
-    department: "it",
-    batch: "2024",
-    image:
-      "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    id: "4",
-    name: "Morgan Chen",
-    rollNumber: "AIDS001",
-    department: "aids",
-    batch: "2024",
-    image:
-      "https://images.pexels.com/photos/1681010/pexels-photo-1681010.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-];
-
 const MembersGrid = ({ batchYear, department }) => {
   const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
-    setMembers(
-      initialMembers.filter(
-        (member) =>
-          member.batch === batchYear && member.department === department
-      )
-    );
+    const fetchMembers = async () => {
+      try {
+        const response = await fetch(`http://localhost:3000/api/user/members/${batchYear}/${department}`);
+        const data = await response.json();
+        if (data.success) {
+          setMembers(data.members);
+        } else {
+          setError(data.message);
+        }
+      } catch (err) {
+        setError("Failed to fetch members.");
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMembers();
   }, [batchYear, department]);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6">

@@ -62,7 +62,7 @@ export default function AboutPage() {
           </div>
           <div className="w-64 card">
             <div className="bg-gray-200 w-full h-64 rounded-lg mb-4"></div>
-            <h3 className="text-xl font-bold text-center">Abdul</h3>
+            <h3 className="text-xl font-bold text-center">Abdul Raheem</h3>
           </div>
           <div className="w-64 card">
             <div className="bg-gray-200 w-full h-64 rounded-lg mb-4"></div>

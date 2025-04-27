@@ -3,6 +3,7 @@ import BatchCard from "../components/community/BatchCard";
 import { useAuth } from "@clerk/clerk-react";
 import {toast} from 'react-toastify'
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 // const batches = [
 //   {
@@ -26,7 +27,7 @@ import axios from "axios";
 // ];
 
 const CommunityPage = () => {
-
+  const location = useLocation();
   const [batches, setBatches] = useState([])
   const [loading, setLoading] = useState(true);
 
@@ -35,6 +36,7 @@ const CommunityPage = () => {
       const { data } = await axios.get('http://localhost:3000/api/user/batches-list');
       if (data.success) { 
         setBatches(data.batches) 
+        console.log(data.batches)
       }
       else {
         toast.error(data.message)
@@ -48,9 +50,19 @@ const CommunityPage = () => {
   }
 
   useEffect(() => {
-    fetchBatches();
-  }, []);
+    fetchBatches(); 
 
+
+    const handleFocus = () => {
+      fetchBatches();
+    };
+
+    window.addEventListener('focus', handleFocus);
+
+    return () => {
+      window.removeEventListener('focus', handleFocus);
+    };
+  }, [location.pathname]);
 
   return (
     <div className="p-10">

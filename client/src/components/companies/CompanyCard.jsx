@@ -25,7 +25,7 @@ const CompanyCard = ({ company }) => {
         <img
           src={company.imgUrl}
           alt="CompImg"
-          className="w-3/4 h-3/4 absolute object-contain opacity-0 group-hover:opacity-100 group-hover:scale-105
+          className="w-3/4 h-3/4 p-4 absolute object-contain opacity-0 group-hover:opacity-100 group-hover:scale-105
           transition-all duration-300 ease-out"
         />
         <h3 className="text-3xl p-2 text-center gradient-text group-hover:opacity-0 transition-all ease-out duration-300">

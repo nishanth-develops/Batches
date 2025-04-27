@@ -1,32 +1,32 @@
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import axios from "axios";
+import { toast } from "react-toastify";
 import AchievementsCard from "../components/community/AchievementsCard";
 import DepartmentCard from "../components/community/DepartmentCard";
 
-const departments = [
-  {
-    name: "Computer Science Engineering",
-    code: "cse",
-    totalStudents: 120,
-    image:
-      "https://images.pexels.com/photos/1181675/pexels-photo-1181675.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    name: "Information Technology",
-    code: "it",
-    totalStudents: 90,
-    image:
-      "https://images.pexels.com/photos/3861972/pexels-photo-3861972.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-  {
-    name: "Artificial Intelligence & Machine Learning",
-    code: "aids",
-    totalStudents: 60,
-    image:
-      "https://images.pexels.com/photos/373543/pexels-photo-373543.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-  },
-];
-
+// Achievements data is still hardcoded for simplicity
 const achievements = {
+  2023: [
+    { title: "Patents", count: 8, icon: "Award" },
+    { title: "Competitions", count: 24, icon: "Trophy" },
+    { title: "Pass Percentage", count: 98, icon: "GraduationCap" },
+  ],
+  2022: [
+    { title: "Patents", count: 8, icon: "Award" },
+    { title: "Competitions", count: 24, icon: "Trophy" },
+    { title: "Pass Percentage", count: 98, icon: "GraduationCap" },
+  ],
+  2021: [
+    { title: "Patents", count: 8, icon: "Award" },
+    { title: "Competitions", count: 24, icon: "Trophy" },
+    { title: "Pass Percentage", count: 98, icon: "GraduationCap" },
+  ],
+  2020: [
+    { title: "Patents", count: 8, icon: "Award" },
+    { title: "Competitions", count: 24, icon: "Trophy" },
+    { title: "Pass Percentage", count: 98, icon: "GraduationCap" },
+  ],
   2024: [
     { title: "Patents", count: 8, icon: "Award" },
     { title: "Competitions", count: 24, icon: "Trophy" },
@@ -46,7 +46,47 @@ const achievements = {
 
 const BatchPage = () => {
   const { year } = useParams();
-  const batchAchievements = achievements[year];
+  const [departments, setDepartments] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  const fetchDepartments = async () => {
+    if (!year) {
+      toast.error("Invalid batch year");
+      return;
+    }
+
+    try {
+      // API call to the updated route for fetching departments
+      const { data } = await axios.get(
+        `http://localhost:3000/api/user/departments/${year}`
+      );
+      // console.log(data); // Log the data to inspect if duplicates are present
+
+      if (data.success) {
+        // Remove duplicates based on a unique identifier (e.g., department name or ID)
+        const uniqueDepartments = [
+          ...new Map(
+            data.departments.map((department) => [department.id, department])
+          ).values(),
+        ];
+
+        setDepartments(uniqueDepartments); // Assuming the backend returns 'departments' as an array
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Failed to fetch departments");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchDepartments();
+  }, [year]);
+
+  const batchAchievements = achievements[year] || [];
 
   return (
     <div className="p-10">
@@ -61,16 +101,22 @@ const BatchPage = () => {
 
       <AchievementsCard achievements={batchAchievements} batchYear={year} />
 
-      <h2 className="text-2xl font-bold mb-6 text-gray-800">Departments</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-        {departments.map((department) => (
-          <DepartmentCard
-            key={department.code}
-            department={department}
-            batchYear={year}
-          />
-        ))}
-      </div>
+      {loading ? (
+        <p className="text-center text-gray-500">Loading departments...</p>
+      ) : (
+        <div>
+          <h2 className="text-2xl font-bold mb-6 text-gray-800">Departments</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+            {departments.map((department, index) => (
+              <DepartmentCard
+              key={`${department.id}-${index}`} // Combine department.id and index to ensure uniqueness
+              department={department}
+              batchYear={year}
+            />            
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

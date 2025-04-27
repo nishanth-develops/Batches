@@ -8,9 +8,16 @@ import clerkAuth from './middlewares/clerkAuth.js';
 const app = express();
 const port = process.env.PORT || 3000;
 
+app.use((req, res, next) => {
+  console.log("🛬 Request reached server.js:", req.method, req.originalUrl);
+  next();
+});
+
+
 // Middlewares
 app.use(cors()); // Allow frontend to connect with backend
 app.use(express.json());
+
 
 // API endpoints
 app.use('/api/user', userRoute);
@@ -21,4 +28,5 @@ app.use('/api/protected', clerkAuth, (req, res) => {
 });
 
 // Start the server
+
 app.listen(port, () => console.log(`Server started on port ${port}`));
